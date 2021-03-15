@@ -1339,7 +1339,7 @@ class BertForSequenceClassification(BertPreTrainedModel):
             loss=loss, logits=logits, hidden_states=outputs.hidden_states, attentions=outputs.attentions,
         )
 
-        
+
 @add_start_docstrings(
     """Bert Model transformer with a sequence classification/regression head on top (a linear layer on top of
     the pooled output) e.g. for GLUE tasks. Take hidden states from BertModel output and apply mean pooling 
@@ -1401,6 +1401,8 @@ class BertAveragedPooledHiddenStatesForSequenceClassification(
     )
     if self.pooled_layers is None:
       pooled_output = outputs.hidden_states[-1]
+    elif len(self.pooled_layers) == 1:
+      pooled_output = torch.mean(outputs.hidden_states[self.pooled_layers[0]], 1)
     else:
       pooled_output = torch.cat([outputs.hidden_states[pl for pl in self.pooled_layers]], 1)
       pooled_output = torch.mean(pooled_output, 1)
