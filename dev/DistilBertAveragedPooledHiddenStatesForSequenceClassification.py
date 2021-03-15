@@ -18,8 +18,6 @@ class DistilBertAveragedPooledHiddenStatesForSequenceClassification(
     self.init_weights()
     self.pooled_layers = pooled_layers
 
-  @add_start_docstrings_to_model_forward(
-      DISTILBERT_INPUTS_DOCSTRING.format("batch_size, num_choices"))
   @add_code_sample_docstrings(
       tokenizer_class=_TOKENIZER_FOR_DOC,
       checkpoint="distilbert-base-uncased",
