@@ -4,7 +4,17 @@
 
 🤗 Transformers provides easy-to-use APIs for general usage of current SoTA model architectures, they are broadly used in NLU and NLG tasks. It provides convinience for using the pretrained models for down stream task in the way as reported in the original papers. However, it doesn't provide the flexibility for exposing any layers from pretrained model. I personally forked the repo (up to the time of written, the latest version is 4.3.3) and impremented several APIs for any ablating experiment usage. Progress can be checked in below section: 
 
-### Progress
+## Progress
+1. BertAveragedPooledHiddenStatesForSequenceClassification
+![100%](https://progress-bar.dev/100)
+Sample usage:
+2. DistilBertAveragedPooledHiddenStatesForSequenceClassification
+![100%](https://progress-bar.dev/100)
+Sample usage:
+3. BertModelOutputWithoutPooler
+![30%](https://progress-bar.dev/30)
+4. DistilBertModelOutputWithoutPooler
+![0%](https://progress-bar.dev/0)
 
 
 ## Model architectures
