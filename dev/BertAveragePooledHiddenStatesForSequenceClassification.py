@@ -7,15 +7,14 @@
 class BertAveragedPooledHiddenStatesForSequenceClassification(
     BertPreTrainedModel):
 
-  def __init__(self, config):
+  def __init__(self, config, pooled_layers=None):
     super().__init__(config)
     self.num_labels = config.num_labels
-
     self.bert = BertModel(config)
     self.dropout = nn.Dropout(config.hidden_dropout_prob)
     self.classifier = nn.Linear(config.hidden_size, config.num_labels)
-
     self.init_weights()
+    self.pooled_layers = pooled_layers
 
   @add_start_docstrings_to_callable(
       BERT_INPUTS_DOCSTRING.format("(batch_size, sequence_length)"))
@@ -58,8 +57,11 @@ class BertAveragedPooledHiddenStatesForSequenceClassification(
         output_hidden_states=output_hidden_states,
         return_dict=return_dict,
     )
-
-    pooled_output = outputs[1]
+    if self.pooled_layers is None:
+      pooled_output = outputs.hidden_states[-1]
+    else:
+      pooled_output = torch.cat([outputs.hidden_states[pl for pl in self.pooled_layers]], 1)
+      pooled_output = torch.mean(pooled_output, 1)
     """
     # <<< outputs[0]:last_hidden_states; outputs[1]:pooler_output
     pooled_output = outputs[1]
