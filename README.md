@@ -2,19 +2,39 @@
 <p>For Ablating Experiment with HuggingFace Transformers
 </h3>
 
+:thought_balloon: Intention for forking this package is to create a set of easy-to-use APIs for ablating experiment along with the marvelous Transformers package. 
+
 🤗 Transformers provides easy-to-use APIs for general usage of current SoTA model architectures, they are broadly used in NLU and NLG tasks. It provides convinience for using the pretrained models for down stream task in the way as reported in the original papers. However, it doesn't provide the flexibility for exposing any layers from pretrained model. I personally forked the repo (up to the time of written, the latest version is 4.3.3) and impremented several APIs for any ablating experiment usage. Progress can be checked in below section: 
 
 ## Progress
 1. BertAveragedPooledHiddenStatesForSequenceClassification
 ![100%](https://progress-bar.dev/100)
 Sample usage:
+    ```shell
+    >>> from transformers import BertAveragedPooledHiddenStatesForSequenceClassification
+    >>> model = BertAveragedPooledHiddenStatesForSequenceClassification('bert-base-uncased')
+    ```
 2. DistilBertAveragedPooledHiddenStatesForSequenceClassification
 ![100%](https://progress-bar.dev/100)
 Sample usage:
+    ```python
+
+    ```
 3. BertModelOutputWithoutPooler
 ![30%](https://progress-bar.dev/30)
 4. DistilBertModelOutputWithoutPooler
 ![0%](https://progress-bar.dev/0)
+
+
+## Version Features
+1. Current version does not integrate with AutoModel* class
+2. Current version requires initialize model with `return_dict=True`
+3. Only accept iterable objects of pooled_layers
+4. Use average as pooling operation
+
+## TODO
+1. Integrate with AutoModel* class
+2. Allow other pooling operation as well as user-defined pooler
 
 
 ## Model architectures
