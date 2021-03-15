@@ -62,7 +62,7 @@ class BertAveragedPooledHiddenStatesForSequenceClassification(
     elif len(self.pooled_layers) == 1:
       pooled_output = torch.mean(outputs.hidden_states[self.pooled_layers[0]], 1)
     else:
-      pooled_output = torch.cat([outputs.hidden_states[pl for pl in self.pooled_layers], 1)
+      pooled_output = torch.cat([outputs.hidden_states[pl] for pl in self.pooled_layers], 1)
       pooled_output = torch.mean(pooled_output, 1)
     """
     # <<< outputs[0]:last_hidden_states; outputs[1]:pooler_output
