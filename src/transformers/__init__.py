@@ -317,6 +317,7 @@ if is_torch_available():
       DistilBertModel,
       DistilBertForMultipleChoice,
       DistilBertForSequenceClassification,
+      DistilBertAveragedPooledHiddenStatesForSequenceClassification,
       DistilBertForQuestionAnswering,
       DistilBertForTokenClassification,
       DISTILBERT_PRETRAINED_MODEL_ARCHIVE_LIST,

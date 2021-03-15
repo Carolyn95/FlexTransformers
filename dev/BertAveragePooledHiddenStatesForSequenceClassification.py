@@ -60,26 +60,12 @@ class BertAveragedPooledHiddenStatesForSequenceClassification(
     if self.pooled_layers is None:
       pooled_output = outputs.hidden_states[-1]
     elif len(self.pooled_layers) == 1:
-      pooled_output = torch.mean(outputs.hidden_states[self.pooled_layers[0]], 1)
+      pooled_output = torch.mean(outputs.hidden_states[self.pooled_layers[0]],
+                                 1)
     else:
-      pooled_output = torch.cat([outputs.hidden_states[pl] for pl in self.pooled_layers], 1)
+      pooled_output = torch.cat(
+          [outputs.hidden_states[pl] for pl in self.pooled_layers], 1)
       pooled_output = torch.mean(pooled_output, 1)
-    """
-    # <<< outputs[0]:last_hidden_states; outputs[1]:pooler_output
-    pooled_output = outputs[1]
-    # >>>
-    print(' >>> Output hidden_states received')
-    pooled_output = torch.mean(outputs.hidden_states[0], 1)
-    print(' >>> Shape of pooled_output ', pooled_output.shape)
-
-    # >>>
-    print(' >>> Output hidden_states received')
-    pooled_output_emb = outputs.hidden_states[0]
-    pooled_output_last = outputs.hidden_states[-1]
-    pooled_output = torch.cat((pooled_output_emb, pooled_output_last), 1)
-    pooled_output = torch.mean(pooled_output, 1)
-    print(' >>> Shape of pooled_output ', pooled_output.shape)
-    """
 
     pooled_output = self.dropout(pooled_output)
     logits = self.classifier(pooled_output)
