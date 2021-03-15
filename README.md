@@ -12,13 +12,14 @@
 Sample usage:
     ```shell
     >>> from transformers import BertAveragedPooledHiddenStatesForSequenceClassification
-    >>> model = BertAveragedPooledHiddenStatesForSequenceClassification('bert-base-uncased')
+    >>> model = BertAveragedPooledHiddenStatesForSequenceClassification('bert-base-uncased', return_dict=True, pooled_layers=[-1, -2])
     ```
 2. DistilBertAveragedPooledHiddenStatesForSequenceClassification
 ![100%](https://progress-bar.dev/100)
 Sample usage:
     ```python
-
+    >>> from transformers import DistilBertAveragedPooledHiddenStatesForSequenceClassification
+    >>> model = DistilBertAveragedPooledHiddenStatesForSequenceClassification('distilbert-base-uncased', return_dict=True, pooled_layers=[0])
     ```
 3. BertModelOutputWithoutPooler
 ![30%](https://progress-bar.dev/30)
