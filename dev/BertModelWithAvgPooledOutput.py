@@ -1,8 +1,8 @@
 @add_start_docstrings(
-    "The bare Bert Model transformer outputting raw hidden-states without any specific head on top.",
+    "The bare Bert Model transformer outputting selected raw hidden-states with averaged pooling operation on top.",
     BERT_START_DOCSTRING,
 )
-class BertModel(BertPreTrainedModel):
+class BertModelWithAveragedPooledOutput(BertPreTrainedModel):
   """
 
     The model can behave as an encoder (with only self-attention) as well
@@ -21,15 +21,15 @@ class BertModel(BertPreTrainedModel):
 
     """
 
-  def __init__(self, config):
+  def __init__(self, config, pooled_layers=None):
     super().__init__(config)
     self.config = config
 
     self.embeddings = BertEmbeddings(config)
     self.encoder = BertEncoder(config)
     self.pooler = BertPooler(config)
-
     self.init_weights()
+    self.pooled_layers = None
 
   def get_input_embeddings(self):
     return self.embeddings.word_embeddings
@@ -139,14 +139,16 @@ class BertModel(BertPreTrainedModel):
         output_hidden_states=output_hidden_states,
         return_dict=return_dict,
     )
-    sequence_output = encoder_outputs[0]
+    # sequence_output = encoder_outputs[0]
+    avg_pooled_sequence_output = torch.mean(
+        torch.cat(encoder_outputs[pl] for pl in self.pooled_layers, 1), 1)
     pooled_output = self.pooler(sequence_output)
 
     if not return_dict:
       return (sequence_output, pooled_output) + encoder_outputs[1:]
 
     return BaseModelOutputWithPooling(
-        last_hidden_state=sequence_output,
+        last_hidden_state=avg_pooled_sequence_output,
         pooler_output=pooled_output,
         hidden_states=encoder_outputs.hidden_states,
         attentions=encoder_outputs.attentions,
