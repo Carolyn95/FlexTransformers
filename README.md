@@ -22,9 +22,9 @@ Sample usage:
     >>> model = DistilBertAveragedPooledHiddenStatesForSequenceClassification('distilbert-base-uncased', return_dict=True, pooled_layers=[0])
     ```
 3. BertModelOutputWithoutPooler
-![30%](https://progress-bar.dev/30)
+![30%](https://progress-bar.dev/100)
 4. DistilBertModelOutputWithoutPooler
-![0%](https://progress-bar.dev/0)
+![0%](https://progress-bar.dev/30)
 
 
 ## Version Features
